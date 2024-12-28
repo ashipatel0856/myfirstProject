@@ -1,26 +1,29 @@
-package com.ashi.springBootWebTutorial.Dto;
+package com.ashi.springBootWebTutorial.Entity;
+
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
-public class EmployeeDto {
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "employees")
+public class EmployeeEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
     private long id;
     private String name;
     private String email;
-    private Integer age;
-
-    private LocalDate dateOfJoining;
-
-    private Boolean isActive;
-
-    public EmployeeDto(long employeeId, String ashish, String mail, int i, LocalDate of, boolean b) {
-    }
-
-
-
-//    public EmployeeDto(String employeeID, String ashish, String mail, int i, LocalDate of, Boolean b) {
-//
-//    }
-
 
     public long getId() {
         return id;
@@ -69,4 +72,10 @@ public class EmployeeDto {
     public void setActive(Boolean active) {
         isActive = active;
     }
+
+    private Integer age;
+
+    private LocalDate dateOfJoining;
+
+    private Boolean isActive;
 }
