@@ -4,6 +4,7 @@ import com.ashi.springBootWebTutorial.Entity.EmployeeEntity;
 import com.ashi.springBootWebTutorial.Repository.EmployeeRepository;
 
 
+import com.ashi.springBootWebTutorial.Service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -12,16 +13,17 @@ import java.util.List;
 @RequestMapping(path="/Employees")
 public class EmployeeController {
 
-    private EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
+
 
     @GetMapping("/{employeeId}")
 
     public EmployeeEntity getEmployeeById(@PathVariable(name = "employeeId") Long id) {
-        return employeeRepository.findById(id).orElse(null);
+        return employeeService.getEmployeeById(id);
 
     }
 
@@ -29,14 +31,13 @@ public class EmployeeController {
     @GetMapping
     public List<EmployeeEntity> getEmployees(@RequestParam(required = false) Integer age,
                                              @RequestParam(required = false) String sortBy) {
-        return employeeRepository.findAll();
+        return employeeService.getAllEmployees();
     }
-
 
     @PostMapping
 
     public EmployeeEntity createNewEmployee(@RequestBody EmployeeEntity employee) {
-        return employeeRepository.save(employee);
+        return employeeService.save(employee);
 
 
     }
